@@ -43,17 +43,58 @@ class MapPage extends StatelessWidget {
   }
 
   List<Widget> _sampleMarkers(BuildContext context) {
+    // Fractional positions on the canvas (sample demo data only).
     const cameras = <_MapMarkerSpec>[
-      _MapMarkerSpec(dx: 0.32, dy: 0.38, kind: _MarkerKind.camera, label: 'cam_north'),
-      _MapMarkerSpec(dx: 0.62, dy: 0.55, kind: _MarkerKind.camera, label: 'Kingstarnes1'),
-      _MapMarkerSpec(dx: 0.72, dy: 0.28, kind: _MarkerKind.camera, label: 'KingStarnes2'),
+      _MapMarkerSpec(
+        dx: 0.32,
+        dy: 0.38,
+        kind: _MarkerKind.camera,
+        label: 'cam_north',
+      ),
+      _MapMarkerSpec(
+        dx: 0.62,
+        dy: 0.55,
+        kind: _MarkerKind.camera,
+        label: 'Kingstarnes1',
+      ),
+      _MapMarkerSpec(
+        dx: 0.72,
+        dy: 0.28,
+        kind: _MarkerKind.camera,
+        label: 'KingStarnes2',
+      ),
     ];
     const pins = <_MapMarkerSpec>[
-      _MapMarkerSpec(dx: 0.45, dy: 0.48, kind: _MarkerKind.pin, label: 'stand', pinType: PinType.stand),
-      _MapMarkerSpec(dx: 0.55, dy: 0.62, kind: _MarkerKind.pin, label: 'blind', pinType: PinType.blind),
-      _MapMarkerSpec(dx: 0.38, dy: 0.58, kind: _MarkerKind.pin, label: 'rub', pinType: PinType.rub),
-      _MapMarkerSpec(dx: 0.68, dy: 0.42, kind: _MarkerKind.pin, label: 'scrape', pinType: PinType.scrape),
+      _MapMarkerSpec(
+        dx: 0.45,
+        dy: 0.48,
+        kind: _MarkerKind.pin,
+        label: 'stand',
+        pinType: PinType.stand,
+      ),
+      _MapMarkerSpec(
+        dx: 0.55,
+        dy: 0.62,
+        kind: _MarkerKind.pin,
+        label: 'blind',
+        pinType: PinType.blind,
+      ),
+      _MapMarkerSpec(
+        dx: 0.38,
+        dy: 0.58,
+        kind: _MarkerKind.pin,
+        label: 'rub',
+        pinType: PinType.rub,
+      ),
+      _MapMarkerSpec(
+        dx: 0.68,
+        dy: 0.42,
+        kind: _MarkerKind.pin,
+        label: 'scrape',
+        pinType: PinType.scrape,
+      ),
     ];
+
     return [
       for (final m in [...cameras, ...pins])
         Align(
@@ -66,7 +107,9 @@ class MapPage extends StatelessWidget {
 
 class _SeasonBadgeBar extends StatelessWidget {
   const _SeasonBadgeBar({required this.phase});
+
   final SeasonPhase phase;
+
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
@@ -78,9 +121,17 @@ class _SeasonBadgeBar extends StatelessWidget {
           children: [
             Icon(Icons.eco, size: 18, color: scheme.primary),
             const SizedBox(width: 8),
-            Text('Season: ${phase.exportName}', style: Theme.of(context).textTheme.titleSmall),
+            Text(
+              'Season: ${phase.exportName}',
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
             const Spacer(),
-            Text('topo · public land', style: Theme.of(context).textTheme.bodySmall?.copyWith(color: scheme.onSurface.withValues(alpha: 0.6))),
+            Text(
+              'topo · public land',
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: scheme.onSurface.withValues(alpha: 0.6),
+                  ),
+            ),
           ],
         ),
       ),
@@ -90,6 +141,7 @@ class _SeasonBadgeBar extends StatelessWidget {
 
 class _DisclaimerBanner extends StatelessWidget {
   const _DisclaimerBanner();
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -97,7 +149,14 @@ class _DisclaimerBanner extends StatelessWidget {
       borderRadius: BorderRadius.circular(8),
       child: Padding(
         padding: const EdgeInsets.all(8),
-        child: Text(MapFeatureConstants.firstUseDisclaimer, style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.white70, fontSize: 11, height: 1.3)),
+        child: Text(
+          MapFeatureConstants.firstUseDisclaimer,
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: Colors.white70,
+                fontSize: 11,
+                height: 1.3,
+              ),
+        ),
       ),
     );
   }
@@ -106,7 +165,14 @@ class _DisclaimerBanner extends StatelessWidget {
 enum _MarkerKind { camera, pin }
 
 class _MapMarkerSpec {
-  const _MapMarkerSpec({required this.dx, required this.dy, required this.kind, required this.label, this.pinType});
+  const _MapMarkerSpec({
+    required this.dx,
+    required this.dy,
+    required this.kind,
+    required this.label,
+    this.pinType,
+  });
+
   final double dx;
   final double dy;
   final _MarkerKind kind;
@@ -116,19 +182,34 @@ class _MapMarkerSpec {
 
 class _MapMarker extends StatelessWidget {
   const _MapMarker({required this.spec});
+
   final _MapMarkerSpec spec;
+
   @override
   Widget build(BuildContext context) {
     final isCam = spec.kind == _MarkerKind.camera;
-    final color = isCam ? const Color(0xFFFFB74D) : const Color(0xFF81C784);
-    final icon = isCam ? Icons.photo_camera : _pinIcon(spec.pinType);
+    final color = isCam
+        ? const Color(0xFFFFB74D)
+        : const Color(0xFF81C784);
+    final icon = isCam
+        ? Icons.photo_camera
+        : _pinIcon(spec.pinType);
     return Tooltip(
       message: spec.label,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: color, size: 22, shadows: const [Shadow(blurRadius: 4, color: Colors.black54)]),
-          Text(spec.label, style: const TextStyle(fontSize: 9, color: Colors.white70, shadows: [Shadow(blurRadius: 2, color: Colors.black)])),
+          Icon(icon, color: color, size: 22, shadows: const [
+            Shadow(blurRadius: 4, color: Colors.black54),
+          ]),
+          Text(
+            spec.label,
+            style: const TextStyle(
+              fontSize: 9,
+              color: Colors.white70,
+              shadows: [Shadow(blurRadius: 2, color: Colors.black)],
+            ),
+          ),
         ],
       ),
     );
