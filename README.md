@@ -1,2 +1,3 @@
-# camfront-preview-mpxdw9-assets
-Static asset CDN for Camfront web preview (noindex sample UI). Not the product repo.
+# Camfront preview static assets
+
+Public CDN host for web preview JS chunks. Not the Camfront source repo.
