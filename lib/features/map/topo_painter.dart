@@ -15,6 +15,7 @@ class TopoPainter extends CustomPainter {
     final bg = Paint()..color = const Color(0xFF1A2E22);
     canvas.drawRect(Offset.zero & size, bg);
 
+    // Soft terrain wash
     final wash = Paint()
       ..shader = const LinearGradient(
         begin: Alignment.topLeft,
@@ -69,6 +70,7 @@ class TopoPainter extends CustomPainter {
       canvas.drawPath(path, contour);
     }
 
+    // Creek-ish stroke
     final creek = Paint()
       ..color = const Color(0xFF5B8FA8).withValues(alpha: 0.35)
       ..style = PaintingStyle.stroke
