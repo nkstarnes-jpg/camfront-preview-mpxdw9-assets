@@ -1,3 +1,4 @@
-# Camfront preview static assets
+# Camfront web preview SOURCE (build-on-Vercel)
 
-Public CDN host for web preview JS chunks. Not the Camfront source repo.
+Public mirror of Flutter source used only so Vercel can build the Camfront web preview.
+Not the canonical repo (that is private `nkstarnes-jpg/camfront`). No secrets.
